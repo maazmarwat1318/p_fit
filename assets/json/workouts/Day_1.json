@@ -1,0 +1,21 @@
+{
+  "name":"Day 1",
+  "exerciseList":[
+    {"name":"Exercise 1",
+    "exerciseType":"durationExercise",
+    "duration":30,
+    "repitions":15
+    
+  },
+  {"name":"Exercise 2",
+    "exerciseType":"durationExercise",
+    "duration":30,
+    "repitions":15
+  },
+  {"name":"Exercise 3",
+    "exerciseType":"durationExercise",
+    "duration":30,
+    "repitions":15
+  }
+  ]
+}

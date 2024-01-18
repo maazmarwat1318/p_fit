@@ -1,0 +1,47 @@
+{
+    "name":"Day 5",
+    "exerciseList":[
+      {"name":"Exercise 1",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 2",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 3",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 4",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 5",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 6",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    },
+    {"name":"Exercise 7",
+      "exerciseType":"durationExercise",
+      "duration":30,
+      "repitions":15
+      
+    }
+    ]
+  }
