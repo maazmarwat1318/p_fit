@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:p_fit/core/enums.dart';
 import 'package:p_fit/core/models/exercise_model.dart';
+import 'package:p_fit/features/catalog/controller/temp_workout_controller.dart';
 import 'package:p_fit/features/workout/controller/workout_controller.dart';
 import 'package:p_fit/features/workout/widgets/workout_exercises_screen_widgets/exercise_view_widgets/exercise_timer.dart';
 import 'package:p_fit/features/workout/widgets/workout_exercises_screen_widgets/exercise_view_widgets/page_view_navigation_buttons.dart';
@@ -10,9 +12,11 @@ class ExerciseView extends StatefulWidget {
   const ExerciseView({
     super.key,
     required this.exercises,
+    required this.forType,
   });
 
   final List<Exercise> exercises;
+  final WorkoutType forType;
 
   @override
   State<ExerciseView> createState() => _ExerciseViewState();
@@ -42,8 +46,9 @@ class _ExerciseViewState extends State<ExerciseView> {
   }
 
   void onTimerComplete(WidgetRef ref, int index) {
-    final startPageIndex =
-        ref.read(workoutControllerProvider.notifier).getStartPage();
+    final startPageIndex = widget.forType == WorkoutType.main
+        ? ref.read(workoutControllerProvider.notifier).getStartPage()
+        : ref.read(tempWorkoutControllerProvider.notifier).getStartPage();
     if (startPageIndex != 0 && index == 0) {
       _pageViewController.jumpToPage(
         startPageIndex,
@@ -55,14 +60,24 @@ class _ExerciseViewState extends State<ExerciseView> {
         onNext();
       }
     }
-    ref.read(workoutControllerProvider.notifier).updateExerciseCompleteStatus(
-          isComplete: true,
-          exerciseIndex: index,
-        );
+    widget.forType == WorkoutType.main
+        ? ref
+            .read(workoutControllerProvider.notifier)
+            .updateExerciseCompleteStatus(
+              isComplete: true,
+              exerciseIndex: index,
+            )
+        : ref
+            .read(tempWorkoutControllerProvider.notifier)
+            .updateExerciseCompleteStatus(
+              isComplete: true,
+              exerciseIndex: index,
+            );
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Exercise View Built");
     return Consumer(builder: (context, ref, _) {
       return Column(
         children: [
@@ -89,10 +104,15 @@ class _ExerciseViewState extends State<ExerciseView> {
                       Consumer(builder: (context, ref, _) {
                         return ExerciseTimer(
                           time: widget.exercises[index].duration,
-                          isComplete: ref
-                              .read(workoutControllerProvider)
-                              .exerciseList[index]
-                              .isComplete,
+                          isComplete: widget.forType == WorkoutType.main
+                              ? ref
+                                  .read(workoutControllerProvider)
+                                  .exerciseList[index]
+                                  .isComplete
+                              : ref
+                                  .read(tempWorkoutControllerProvider)!
+                                  .exerciseList[index]
+                                  .isComplete,
                           onComplete: () => onTimerComplete(ref, index),
                         );
                       }),
@@ -115,9 +135,13 @@ class _ExerciseViewState extends State<ExerciseView> {
             child: PageViewNavigationButtons(
               onBack: onBack,
               onNext: onNext,
+              forType: widget.forType,
               numberOfViews: widget.exercises.length,
-              currentIndex:
-                  ref.read(workoutControllerProvider.notifier).getStartPage(),
+              currentIndex: widget.forType == WorkoutType.main
+                  ? ref.read(workoutControllerProvider.notifier).getStartPage()
+                  : ref
+                      .read(tempWorkoutControllerProvider.notifier)
+                      .getStartPage(),
             ),
           )
         ],

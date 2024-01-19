@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p_fit/core/audio/audio_manager.dart';
+import 'package:p_fit/core/enums.dart';
 import 'package:p_fit/features/workout/controller/workout_controller.dart';
 import 'package:p_fit/features/workout/screens/workout_exercises_screen.dart';
 
@@ -23,7 +24,8 @@ class WorkoutStartButton extends StatelessWidget {
           }
           // TODO: FIx this , link this to buttons in ExerciseView or AUtomate this this problem occurs only when we go back unexpectedly hence use PopScope
           Navigator.of(context)
-              .pushNamed(WorkoutExercisesScreen.route)
+              .pushNamed(WorkoutExercisesScreen.route,
+                  arguments: WorkoutType.main)
               .then((value) => ref.read(audioManagerProvider).stopAudio());
         },
         label: Row(

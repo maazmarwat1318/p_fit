@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p_fit/core/constants/spacing.dart';
+import 'package:p_fit/core/enums.dart';
 import 'package:p_fit/features/catalog/controller/temp_workout_controller.dart';
+import 'package:p_fit/features/workout/screens/workout_exercises_screen.dart';
 import 'package:p_fit/features/workout/widgets/animated_tick_icon.dart';
 import 'package:p_fit/features/workout/widgets/workout_screen_widgets/workout_menu.dart';
 
@@ -19,7 +21,10 @@ class TempWorkoutOverviewScreen extends ConsumerWidget {
         actions: const [WorkoutMenu()],
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(WorkoutExercisesScreen.route,
+                arguments: WorkoutType.temp);
+          },
           label: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -69,4 +69,9 @@ class TempWorkoutController extends StateNotifier<Workout?> {
     debugPrint("workout reset");
     state = null;
   }
+
+  int getStartPage() {
+    final pageIndex = (state!.percent * state!.exerciseList.length).round();
+    return pageIndex;
+  }
 }

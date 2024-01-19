@@ -51,8 +51,14 @@ class WorkoutController extends StateNotifier<Workout> {
     }
     if (isComplete) {
       final percent = state.percent + (1 / updatedList.length);
+
       state = state.copyWith(
-          exerciseList: updatedList, percent: percent <= 1.0 ? percent : 1.0);
+          exerciseList: updatedList,
+          percent: percent >= 0.99
+              ? 1.0
+              : percent <= 1.0
+                  ? percent
+                  : 1.0);
       ref
           .read(initialProgressControllerProvider.notifier)
           .updateTime(state.exerciseList[exerciseIndex].duration);
@@ -144,15 +150,15 @@ class WorkoutController extends StateNotifier<Workout> {
   }
 
   //TODO: remove these methods as they are for testing purposes only
-  void setLateWorkoutStartDate() {
-    // To fix
-    final lateDate = UtilFunction.getDate().subtract(const Duration(days: 1));
-    state = state.copyWith(startDate: lateDate);
-  }
+  // void setLateWorkoutStartDate() {
+  //   // To fix
+  //   final lateDate = UtilFunction.getDate().subtract(const Duration(days: 1));
+  //   state = state.copyWith(startDate: lateDate);
+  // }
 
-  void setTodayStartDate() {
-    // To fix
-    final lateDate = UtilFunction.getDate().subtract(const Duration(days: 1));
-    state = state.copyWith(startDate: lateDate);
-  }
+  // void setTodayStartDate() {
+  //   // To fix
+  //   final lateDate = UtilFunction.getDate().subtract(const Duration(days: 1));
+  //   state = state.copyWith(startDate: lateDate);
+  // }
 }

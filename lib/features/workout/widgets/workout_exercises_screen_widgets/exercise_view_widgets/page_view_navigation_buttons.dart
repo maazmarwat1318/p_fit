@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p_fit/core/constants/colors.dart';
+import 'package:p_fit/core/enums.dart';
+import 'package:p_fit/features/catalog/controller/temp_workout_controller.dart';
 import 'package:p_fit/features/workout/controller/workout_controller.dart';
 
 class PageViewNavigationButtons extends StatefulWidget {
@@ -10,11 +12,13 @@ class PageViewNavigationButtons extends StatefulWidget {
     required this.onBack,
     required this.numberOfViews,
     required this.currentIndex,
+    required this.forType,
   });
   final void Function() onNext;
   final void Function() onBack;
   final int numberOfViews;
   final int currentIndex;
+  final WorkoutType forType;
 
   @override
   State<PageViewNavigationButtons> createState() =>
@@ -60,6 +64,7 @@ class _PageViewNavigationButtonsState extends State<PageViewNavigationButtons> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Page Navs Built");
     return Consumer(builder: (context, ref, _) {
       if (ref.read(autoProgressController)) {
         return Padding(
@@ -81,8 +86,11 @@ class _PageViewNavigationButtonsState extends State<PageViewNavigationButtons> {
           ),
         );
       }
-      final isComplete = ref.watch(workoutControllerProvider
-          .select((value) => value.exerciseList[currentIndex].isComplete));
+      final isComplete = widget.forType == WorkoutType.main
+          ? ref.watch(workoutControllerProvider
+              .select((value) => value.exerciseList[currentIndex].isComplete))
+          : ref.watch(tempWorkoutControllerProvider
+              .select((value) => value!.exerciseList[currentIndex].isComplete));
 
       return Padding(
         padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),

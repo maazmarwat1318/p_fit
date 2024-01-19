@@ -62,6 +62,7 @@ class _ExerciseTimerState extends ConsumerState<ExerciseTimer> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Timer Built");
     return RepaintBoundary(
       child: CircularPercentIndicator(
         radius: 60,

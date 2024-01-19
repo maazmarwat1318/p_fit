@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p_fit/core/enums.dart';
 import 'package:p_fit/features/activity/screens/activity_screen.dart';
 import 'package:p_fit/features/authentication/screens/email_signin_screen.dart';
 import 'package:p_fit/features/authentication/screens/forgot_password_screen.dart';
@@ -67,8 +68,11 @@ class Routes {
           builder: (context) => const WorkoutScreen(),
         );
       case workoutExercisesScreen:
+        final type = settings.arguments as WorkoutType;
         return MaterialPageRoute(
-          builder: (context) => const WorkoutExercisesScreen(),
+          builder: (context) => WorkoutExercisesScreen(
+            type: type,
+          ),
         );
       case workoutCatalogScreen:
         return MaterialPageRoute(

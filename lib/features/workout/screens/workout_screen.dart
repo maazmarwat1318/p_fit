@@ -61,21 +61,27 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         //
         // ignore: prefer_const_constructors, beacuse we want the button to change from state when the screen re appears
         floatingActionButton: const WorkoutStartButton(),
-        body: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: Spacing.scaffoldPadding),
+        body: Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: Spacing.scaffoldPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              WorkoutTitleHero(),
-              WorkoutCircularProgressIndicator(),
-              SizedBox(
+              WorkoutTitleHero(
+                title: ref.read(workoutControllerProvider).name,
+              ),
+              const WorkoutCircularProgressIndicator(),
+              const SizedBox(
                 height: 12.5,
               ),
-              DoneTitle(),
-              SizedBox(
+              const DoneTitle(),
+              const SizedBox(
                 height: 12.5,
               ),
-              ExerciseList(),
+              const Expanded(child: ExerciseList()),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

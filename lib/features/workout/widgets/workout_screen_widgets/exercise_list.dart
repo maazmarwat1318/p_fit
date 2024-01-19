@@ -15,8 +15,7 @@ class ExerciseList extends StatelessWidget {
       final List<Exercise> exercises =
           ref.read(workoutControllerProvider).exerciseList;
 
-      return Expanded(
-          child: ListView.builder(
+      return ListView.builder(
         itemBuilder: (context, index) {
           return Consumer(builder: (context, ref, _) {
             final exercise = exercises[index];
@@ -42,7 +41,7 @@ class ExerciseList extends StatelessWidget {
           });
         },
         itemCount: exercises.length,
-      ));
+      );
     });
   }
 }
