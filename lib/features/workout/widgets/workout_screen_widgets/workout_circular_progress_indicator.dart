@@ -16,12 +16,12 @@ class WorkoutCircularProgressIndicator extends StatelessWidget {
           ref.watch(workoutControllerProvider.select((value) => value.percent));
 
       return CircularPercentIndicator(
-        radius: 100,
+        radius: 70,
         animation: true,
         animateFromLastPercent: true,
         animationDuration: 1000,
         percent: percent,
-        lineWidth: 10.0,
+        lineWidth: 8.0,
         circularStrokeCap: CircularStrokeCap.round,
         backgroundColor: AppColors.progressBarBackgroundColor,
         progressColor: AppColors.progressBarColor,

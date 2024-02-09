@@ -45,9 +45,11 @@ class TempWorkoutController extends StateNotifier<Workout?> {
       updatedList.add(state!.exerciseList[i]);
     }
     if (isComplete) {
-      final percent = state!.percent + (1 / updatedList.length);
-      state = state!.copyWith(
-          exerciseList: updatedList, percent: percent <= 1.0 ? percent : 1.0);
+      //State not updated yet hence +1
+      final percent = (getCompletedExercises() + 1) / getTotalExercises();
+      // To fix this implementation instead of percent use completeExercises
+
+      state = state?.copyWith(exerciseList: updatedList, percent: percent);
       ref
           .read(initialProgressControllerProvider.notifier)
           .updateTime(state!.exerciseList[exerciseIndex].duration);
@@ -73,5 +75,19 @@ class TempWorkoutController extends StateNotifier<Workout?> {
   int getStartPage() {
     final pageIndex = (state!.percent * state!.exerciseList.length).round();
     return pageIndex;
+  }
+
+  int getTotalExercises() {
+    return state!.exerciseList.length;
+  }
+
+  int getCompletedExercises() {
+    int completedExercises = 0;
+    for (Exercise exercise in state!.exerciseList) {
+      if (exercise.isComplete) {
+        completedExercises++;
+      }
+    }
+    return completedExercises;
   }
 }

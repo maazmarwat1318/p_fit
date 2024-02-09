@@ -95,7 +95,7 @@ class _ExerciseViewState extends State<ExerciseView> {
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
                           'Repitions ${widget.exercises[index].repitions}',
                           style: Theme.of(context).textTheme.titleLarge,

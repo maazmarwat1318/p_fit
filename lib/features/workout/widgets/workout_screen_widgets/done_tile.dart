@@ -9,19 +9,19 @@ class DoneTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
-      final status = ref.watch(workoutControllerProvider).percent;
+      final percent = ref.watch(workoutControllerProvider).percent;
       final isLate = ref.read(workoutControllerProvider.notifier).isLate();
 
       return Center(
         child: Text(
-          status == 1
+          percent == 1
               ? 'Your are done for today, come back tomorrow'
               : isLate == 0
                   ? 'Your workout is ready'
                   : 'You missed your workout by $isLate day(s), your workout is reset',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: status == 1
+                color: percent == 1
                     ? AppColors.progressAlternateTextColor
                     : isLate != 0
                         ? Colors.redAccent

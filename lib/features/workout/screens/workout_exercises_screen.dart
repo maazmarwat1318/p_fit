@@ -18,6 +18,7 @@ class WorkoutExercisesScreen extends ConsumerWidget {
     final workout = type == WorkoutType.main
         ? ref.read(workoutControllerProvider)
         : ref.read(tempWorkoutControllerProvider)!;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

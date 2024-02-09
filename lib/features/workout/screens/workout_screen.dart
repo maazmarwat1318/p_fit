@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:p_fit/core/common_widgets/loader_widgets/loader.dart';
 
 import 'package:p_fit/core/constants/spacing.dart';
 import 'package:p_fit/features/activity/controller/initial_progress_controller.dart';
@@ -23,15 +24,20 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
+      ref.watch(workoutControllerProvider);
       if (ref.read(initialProgressControllerProvider).completedWorkouts ==
           ref.read(initialProgressControllerProvider).totalWorkouts) {
-        return const Scaffold(
+        return Scaffold(
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(),
-                Text('Congratulations You have completed your Workout Plan'),
+                const ScreenLoader(),
+                Text(
+                  'Congratulations You have completed your Workout Plan',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ),
@@ -39,14 +45,20 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       }
 
       if (!ref.read(workoutControllerProvider.notifier).isCorrectWorkout()) {
-        ref.read(workoutControllerProvider.notifier).loadNextWorkout(context);
-        return const Scaffold(
+        Future.delayed(const Duration(seconds: 1), () {
+          ref.read(workoutControllerProvider.notifier).loadNextWorkout(context);
+        });
+        return Scaffold(
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(),
-                Text('Preparing your workout'),
+                const ScreenLoader(),
+                Text(
+                  'Preparing your workout',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ],
             ),
           ),

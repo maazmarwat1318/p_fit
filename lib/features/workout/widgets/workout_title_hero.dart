@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:p_fit/features/workout/controller/workout_controller.dart';
 
 class WorkoutTitleHero extends StatelessWidget {
   const WorkoutTitleHero({

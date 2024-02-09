@@ -33,7 +33,11 @@ class WorkoutStartButton extends StatelessWidget {
           children: [
             Consumer(builder: (context, ref, _) {
               return Text(
-                percent == 1 ? 'Restart Workout' : 'Start Workout',
+                percent == 1
+                    ? 'Restart Workout'
+                    : percent == 0
+                        ? 'Start Workout'
+                        : 'Continue Workout',
                 style: Theme.of(context).textTheme.titleMedium,
               );
             }),
