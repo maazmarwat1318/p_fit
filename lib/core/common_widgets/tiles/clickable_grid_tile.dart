@@ -13,7 +13,7 @@ class ClickableGridTile extends StatelessWidget {
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    final scrrenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -35,7 +35,7 @@ class ClickableGridTile extends StatelessWidget {
                     text: text,
                     textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.w600,
-                        fontSize: 18 + (scrrenWidth * 0.01)),
+                        fontSize: 15 + (screenWidth * 0.01)),
                   ),
                 ),
                 const FaIcon(FontAwesomeIcons.circleArrowRight)

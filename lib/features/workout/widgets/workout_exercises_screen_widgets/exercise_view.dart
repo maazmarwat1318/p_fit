@@ -77,11 +77,11 @@ class _ExerciseViewState extends State<ExerciseView> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Exercise View Built");
+    // debugPrint("Exercise View Built");
     return Consumer(builder: (context, ref, _) {
       return Column(
         children: [
-          Expanded(
+          Flexible(
             child: PageView.builder(
               controller: _pageViewController,
               physics: const NeverScrollableScrollPhysics(),
@@ -92,13 +92,13 @@ class _ExerciseViewState extends State<ExerciseView> {
                     children: [
                       Text(
                         widget.exercises[index].name,
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
                           'Repitions ${widget.exercises[index].repitions}',
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
                       Consumer(builder: (context, ref, _) {
@@ -117,10 +117,13 @@ class _ExerciseViewState extends State<ExerciseView> {
                         );
                       }),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child:
-                              LottieBuilder.asset('assets/animations/exe.json'),
+                        child: Container(
+                          constraints: const BoxConstraints(minHeight: 200),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: LottieBuilder.asset(
+                                'assets/animations/exe.json'),
+                          ),
                         ),
                       ),
                     ],

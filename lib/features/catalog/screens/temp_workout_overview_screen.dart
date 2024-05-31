@@ -18,6 +18,15 @@ class TempWorkoutOverviewScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: Hero(
+          tag: ref.read(tempWorkoutControllerProvider)!.name,
+          child: Text(ref.read(tempWorkoutControllerProvider)!.name,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(fontSize: 22)),
+        ),
         actions: const [WorkoutMenu()],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -43,11 +52,6 @@ class TempWorkoutOverviewScreen extends ConsumerWidget {
             const EdgeInsets.symmetric(horizontal: Spacing.scaffoldPadding),
         child: Column(
           children: [
-            Hero(
-              tag: ref.read(tempWorkoutControllerProvider)!.name,
-              child: Text(ref.read(tempWorkoutControllerProvider)!.name,
-                  style: Theme.of(context).textTheme.displaySmall),
-            ),
             const SizedBox(height: Spacing.normalWidgetSpacing),
             Text(
               'Exercises',

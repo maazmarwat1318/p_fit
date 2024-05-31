@@ -19,7 +19,7 @@ class WorkoutLinearProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Linear Progress built");
+    // debugPrint("Linear Progress built");
     return Consumer(builder: (context, ref, _) {
       final int completeExercises = forType == WorkoutType.main
           ? (ref.watch(

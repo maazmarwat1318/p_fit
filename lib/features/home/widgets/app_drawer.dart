@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p_fit/core/constants/spacing.dart';
 import 'package:p_fit/features/authentication/controller/auth_controller.dart';
 import 'package:p_fit/features/home/widgets/dark_mode_switch.dart';
+import 'package:p_fit/features/home/widgets/reset_dialog.dart';
 
 class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
@@ -40,6 +41,14 @@ class AppDrawer extends ConsumerWidget {
                   ListTile(
                     contentPadding: const EdgeInsets.all(0),
                     onTap: () {
+                      _showResetAlertDialog(context);
+                    },
+                    title: const Text('Reset Progress'),
+                    leading: const FaIcon(FontAwesomeIcons.trash),
+                  ),
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(0),
+                    onTap: () {
                       ref
                           .read(authControllerProvider.notifier)
                           .signOut(context);
@@ -57,4 +66,14 @@ class AppDrawer extends ConsumerWidget {
       ),
     );
   }
+}
+
+Future<void> _showResetAlertDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const ResetDialog();
+    },
+  );
 }

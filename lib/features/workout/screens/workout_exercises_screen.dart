@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:p_fit/core/audio/audio_manager.dart';
 import 'package:p_fit/core/constants/spacing.dart';
 import 'package:p_fit/core/enums.dart';
 import 'package:p_fit/features/catalog/controller/temp_workout_controller.dart';
@@ -14,34 +15,41 @@ class WorkoutExercisesScreen extends ConsumerWidget {
   static const route = '/workout-exercises-screen';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint("WorkoutExercises Screen build");
+    // debugPrint("WorkoutExercises Screen build");
     final workout = type == WorkoutType.main
         ? ref.read(workoutControllerProvider)
         : ref.read(tempWorkoutControllerProvider)!;
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Spacing.scaffoldPadding,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        ref.read(audioManagerProvider).stopAudio();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: WorkoutTitleHero(
+            title: workout.name,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: WorkoutTitleHero(
-                  title: workout.name,
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.scaffoldPadding,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                WorkoutLinearProgressIndicator(
+                  exercises: workout.exerciseList,
+                  forType: type,
                 ),
-              ),
-              WorkoutLinearProgressIndicator(
-                exercises: workout.exerciseList,
-                forType: type,
-              ),
-              Expanded(
-                child: ExerciseView(
-                    exercises: workout.exerciseList, forType: type),
-              ),
-            ],
+                Expanded(
+                  child: ExerciseView(
+                      exercises: workout.exerciseList, forType: type),
+                ),
+              ],
+            ),
           ),
         ),
       ),

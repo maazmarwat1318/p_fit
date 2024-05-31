@@ -11,16 +11,30 @@ class AudioManager {
   static const startBeep = 'start_beep';
   static const stopBeep = 'stop_beep';
   static const startCount3 = 'start_count_3';
+  Map<String, String?> loadedFilesUrls = {
+    'start_beep': null,
+    'stop_beep': null,
+    'start_count_3': null,
+  };
   void initAudioManager() {
-    _audioPlayer.audioCache.loadAll([
-      'audio/start_beep.mp3',
-      'audio/start_count_3.mp3',
-      'audio/stop_beep.mp3'
-    ]);
+    _audioPlayer.audioCache.load('audio/start_beep.mp3').then((value) {
+      loadedFilesUrls['start_beep'] = value.path;
+    });
+    _audioPlayer.audioCache.load('audio/stop_beep.mp3').then((value) {
+      loadedFilesUrls['stop_beep'] = value.path;
+    });
+    _audioPlayer.audioCache.load('audio/start_count_3.mp3').then((value) {
+      loadedFilesUrls['start_count_3'] = value.path;
+    });
   }
 
   void playAudio(String name) {
-    _audioPlayer.play(AssetSource('audio/$name.mp3'));
+    // print(loadedFilesUrls);
+    if (loadedFilesUrls[name] == null) {
+      _audioPlayer.play(AssetSource('audio/$name.mp3'));
+    } else {
+      _audioPlayer.play(DeviceFileSource(loadedFilesUrls[name]!));
+    }
   }
 
   void stopAudio() {

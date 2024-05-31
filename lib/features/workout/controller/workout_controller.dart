@@ -62,7 +62,7 @@ class WorkoutController extends StateNotifier<Workout> {
       }
     }
     saveWorkoutState();
-    debugPrint(state.toString());
+    // debugPrint(state.toString());
   }
 
   void saveWorkoutState() async {

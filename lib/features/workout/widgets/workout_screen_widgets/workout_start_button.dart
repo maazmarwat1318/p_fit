@@ -12,7 +12,7 @@ class WorkoutStartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("here in start button");
+    // debugPrint("here in start button");
     return Consumer(builder: (context, ref, _) {
       final percent =
           ref.watch(workoutControllerProvider.select((value) => value.percent));
@@ -23,10 +23,8 @@ class WorkoutStartButton extends StatelessWidget {
             ref.read(workoutControllerProvider.notifier).resetWorkout();
           }
           // TODO: FIx this , link this to buttons in ExerciseView or AUtomate this this problem occurs only when we go back unexpectedly hence use PopScope
-          Navigator.of(context)
-              .pushNamed(WorkoutExercisesScreen.route,
-                  arguments: WorkoutType.main)
-              .then((value) => ref.read(audioManagerProvider).stopAudio());
+          Navigator.of(context).pushNamed(WorkoutExercisesScreen.route,
+              arguments: WorkoutType.main);
         },
         label: Row(
           mainAxisSize: MainAxisSize.min,

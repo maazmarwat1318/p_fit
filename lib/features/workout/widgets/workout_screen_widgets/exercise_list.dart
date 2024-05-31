@@ -26,7 +26,7 @@ class ExerciseList extends StatelessWidget {
               leading: const Icon(Icons.run_circle_outlined),
               title: Text(
                 exercise.name,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               subtitle: Text(
                   'Duration: ${duration.toStringAsFixed(1)} min  Reps: ${exercise.repitions}'),

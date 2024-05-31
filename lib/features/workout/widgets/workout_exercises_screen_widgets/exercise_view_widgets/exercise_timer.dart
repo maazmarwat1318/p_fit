@@ -62,10 +62,18 @@ class _ExerciseTimerState extends ConsumerState<ExerciseTimer> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Timer Built");
+    final screenWidth = MediaQuery.of(context).size.width;
+    late double radius;
+    if (screenWidth > 410) {
+      radius = 70;
+    } else if (screenWidth > 375) {
+      radius = 60;
+    } else {
+      radius = 55;
+    }
     return RepaintBoundary(
       child: CircularPercentIndicator(
-        radius: 60,
+        radius: radius,
         progressColor: AppColors.progressAlternateTextColor,
         animation: true,
         animateFromLastPercent: true,
@@ -93,7 +101,7 @@ class _ExerciseTimerState extends ConsumerState<ExerciseTimer> {
 
 String getTimeString(int totalTime, int currentTime, bool isComplete) {
   if (currentTime == totalTime || isComplete) {
-    return 'Complete';
+    return 'Done';
   }
   int remainingTime = totalTime - currentTime;
   if (currentTime < 0) {

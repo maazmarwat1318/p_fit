@@ -68,7 +68,7 @@ class TempWorkoutController extends StateNotifier<Workout?> {
   }
 
   void resetWorkout() {
-    debugPrint("workout reset");
+    // debugPrint("workout reset");
     state = null;
   }
 

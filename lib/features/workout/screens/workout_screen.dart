@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:p_fit/core/audio/audio_manager.dart';
 import 'package:p_fit/core/common_widgets/loader_widgets/loader.dart';
 
 import 'package:p_fit/core/constants/spacing.dart';
@@ -64,34 +65,33 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           ),
         );
       }
-      //TODO: Make sure this works or not
-      // ref.read(audioManagerProvider).initAudioManager();
+      ref.read(audioManagerProvider).initAudioManager();
       return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          title: WorkoutTitleHero(
+            title: ref.read(workoutControllerProvider).name,
+          ),
           actions: const [WorkoutMenu()],
         ),
         //
         // ignore: prefer_const_constructors, beacuse we want the button to change from state when the screen re appears
         floatingActionButton: const WorkoutStartButton(),
-        body: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: Spacing.scaffoldPadding),
+        body: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: Spacing.scaffoldPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              WorkoutTitleHero(
-                title: ref.read(workoutControllerProvider).name,
-              ),
-              const WorkoutCircularProgressIndicator(),
-              const SizedBox(
+              WorkoutCircularProgressIndicator(),
+              SizedBox(
                 height: 12.5,
               ),
-              const DoneTitle(),
-              const SizedBox(
+              DoneTitle(),
+              SizedBox(
                 height: 12.5,
               ),
-              const Expanded(child: ExerciseList()),
-              const SizedBox(
+              Expanded(child: ExerciseList()),
+              SizedBox(
                 height: 20,
               ),
             ],

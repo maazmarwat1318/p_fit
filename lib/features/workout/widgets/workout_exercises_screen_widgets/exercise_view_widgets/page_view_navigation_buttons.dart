@@ -64,7 +64,7 @@ class _PageViewNavigationButtonsState extends State<PageViewNavigationButtons> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Page Navs Built");
+    // debugPrint("Page Navs Built");
     return Consumer(builder: (context, ref, _) {
       if (ref.read(autoProgressController)) {
         return Padding(
